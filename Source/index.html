@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Planovac</title>
+
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+
+	<!-- Custom Stylesheet -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="top">
+			<h1 id="title" class="hidden"><span id="logo">Planovac</span></h1>
+		</div>
+		<div class="login-box animated fadeInUp">
+			<div class="box-header">
+				<h2>Log In</h2>
+			</div>
+			<label for="username">Username</label>
+			<br/>
+			<input type="text" id="username" required>
+			<br/>
+			<label for="password">Password</label>
+			<br/>
+			<input type="password" id="password" required>
+			<br/>
+			<button onclick="validate()">Sign In</button>
+			<br/>
+			<br/>
+			<a href="register.html"><button>Register</button></a>
+			<br/>
+			<br/>
+			<button onclick="login()">Gmail Login</button>
+			<br/>
+			<a href="#"><p class="small">Forgot your password?</p></a>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+<script data-require="jquery" data-semver="2.0.3" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    function logout()
+    {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+    function login()
+    {
+        var myParams = {
+            'clientid' : '738433218081-7111mc5s0vgkfgqjoaeahr87alrpd3vm.apps.googleusercontent.com',
+            'cookiepolicy' : 'single_host_origin',
+            'callback' : 'loginCallback',
+            'approvalprompt':'force',
+            'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+        };
+        gapi.auth.signIn(myParams);
+        window.location.href("http://localhost:63342/ReviewSentiment/Planovac/home.html");
+    }
+    function loginCallback(result)
+    {
+        if(result['status']['signed_in'])
+        {
+            var request = gapi.client.plus.people.get(
+                {
+                    'userId': 'me'
+                });
+            request.execute(function (resp)
+            {
+                var email = '';
+                if(resp['emails'])
+                {
+                    for(i = 0; i < resp['emails'].length; i++)
+                    {
+                        if(resp['emails'][i]['type'] == 'account')
+                        {
+                            email = resp['emails'][i]['value'];
+                        }
+                    }
+                }
+                var str = "Name:" + resp['displayName'] + "<br>";
+                str += "Image:" + resp['image']['url'] + "<br>";
+                str += "<img src='" + resp['image']['url'] + "' /><br>";
+                str += "URL:" + resp['url'] + "<br>";
+                str += "Email:" + email + "<br>";
+                document.getElementById("profile").innerHTML = str;
+            });
+        }
+    }
+    function onLoadCallback()
+    {
+        gapi.client.setApiKey('AIzaSyA23Qn5CJLuLm1_rfY1qBPa6i1s1Gi2J1w');
+        gapi.client.load('plus', 'v1',function(){});
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    function validate(){
+        var user= document.getElementById('username');
+        var pwd= document.getElementById('password');
+        var cuser="ravali";
+        var cpwd="admin";
+        if (user.value==cuser){
+            if (pwd.value==cpwd){
+                window.alert("You are logged in as "+user.value);
+                window.location.replace("http://localhost:63342/ReviewSentiment/Planovac/home.html");
+			}
+            else
+                window.alert("Enter correct credentials");
+		}
+		else
+		    window.alert("Enter correct credentials");
+	}
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
