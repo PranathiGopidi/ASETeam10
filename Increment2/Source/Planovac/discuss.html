@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="" data-ng-app="myApp">
 <head>
-    <meta charset="utf-8">
-    <title>Planovac</title>
-
-    <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <meta t="utf-8">
+   <title>Planovac</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>  
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+  <script src="js/app.js"></script>
+  <link rel="stylesheet" href="css/style.css"> 
+    
 </head>
+    
 
 <body>
 <div class="container">
@@ -32,13 +33,38 @@
         <a href="login.html"><button>Sign out</button></a>
         <br/>
         <br/>
-       <label for="Create Topic">Topic Name</label>
-        <input type="text" id="Create Topic">
-        <button>Create Topic</button>
-		<br/>
-        <button> Show Topic</button>
-			<br/>
-        <p><b>Java</b></p>
+       <div ng-controller="DiscussController">
+<table>
+  <tr>
+    <td>Topic</td>
+    <td><input type="text" name="topic" id="topic" data-ng-model="topic" required/></td>
+  </tr>
+  <tr>
+    <td>Comment</td>
+    <td><input type="text" name="comment" id="comment" data-ng-model="comment" /></td>
+  </tr>
+  
+</table><br/>
+   <button id="register" name="register" ng_click="register(topic,comment)">CreateTopic</button>
+</form>
+   
+    <br/>
+    <p > {{msg}}</p>
+	
+	
+	<button id="showtopic" name="showtopic" ng_click="showtopic(topic)">ShowTopic</button> 
+	
+             <ul>
+              <li ng-repeat="item in data1.data | filter:{topic:topic}">
+                <span>{{topic}}</span>
+				<p>{{item.comment}}</p>
+                  
+                  
+                            </li>
+            </ul>
+     
+</div>
+        </div>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
 </body>
