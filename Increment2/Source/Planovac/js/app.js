@@ -74,6 +74,43 @@ app.controller("ProfileController", function ($scope, $http, $httpParamSerialize
 
 });
 
+app.controller("DiscussController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
+//alert("hi");
+    $scope.pageClass = 'register';
+$scope.register = function(topic,comment) {
+   
+$http({
+    method: 'POST',
+    url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
+    data: JSON.stringify({
+                topic: topic,
+				comment: comment
+                }),
+    contentType: "application/json"
+}).success(function() {
+    $scope.topic ="";
+    $scope.comment ="";
+    
+    $scope.msg ="User created successfully";
+    /*$window.location.href = "/lab7_mongo/www/Login.html";*/
+        })
+}
+$scope.showtopic = function(topic) {
+   $scope.topic = topic;
+    alert($scope.topic);
+$http({
+    method: 'GET',
+    url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',    
+    /*contentType: "application/json"*/
+}).then(function success(data) { 
+    //alert(data);
+   $scope.data1 = angular.fromJson(data);
+    /*$window.location.href = "/lab7_mongo/www/Home.html";*/
+
+})
+}   
+}); 
+
 
 
 
