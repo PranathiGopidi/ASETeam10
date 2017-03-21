@@ -1,6 +1,6 @@
 # ASE Project Team #10
 
-Project Increment #1 Report Wiki page : https://github.com/PranathiGopidi/ASETeam10/wiki/Increment-1-Report
+Project Increment #1 Report Wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-1-Report
 
 Project Increment #2 Report wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-2-Report
 
