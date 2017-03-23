@@ -35,7 +35,7 @@
             <a href="login.html"><button>Sign out</button></a>
             <br/>
             <br/>
-            <b style="text-align: center">Hello</b> <b id="name"></b><br/><br/>
+            <b style="text-align: center">Hello</b> <b id="name"></b><b id="dispname"></b><br/><br/>
             Students tend to forget their class timings, important assignment deadlines etc due
             to their hectic schedules. The proposed application works as a scheduler and reminds
             them of their important activities such as sending alerts when their classes start, alerts
@@ -46,6 +46,6 @@
 </body>
 <script>
     if(typeof(sessionStorage)){
-    document.getElementById("name").innerHTML = sessionStorage.getItem("username1");}
+    document.getElementById("name").innerHTML = sessionStorage.getItem("username");}
 </script>
 </html>
