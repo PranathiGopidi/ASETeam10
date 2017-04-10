@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="" data-ng-app="myApp">
+<html lang="" data-ng-app="demoMongo">
 <head>
     <meta t="utf-8">
     <title>Planovac</title>
@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
     <script src="js/app.js"></script>
+    <script src="js/index.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -33,20 +34,21 @@
         <a href="login.html"><button>Sign out</button></a>
         <br/>
         <br/>
-        <div ng-controller="DiscussController">
+        <div ng-controller="MongoRestController">
             <table>
                 <tr>
                     <td>Topic</td>
-                    <td><input type="text" name="topic" id="topic" data-ng-model="topic" required/></td>
+                    <td><input type="text" name="topic" id="topic"  ng-model="formData.topic" required/></td>
                 </tr>
                 <tr>
                     <td>Comment</td>
-                    <td><input type="text" name="comment" id="comment" data-ng-model="comment" /></td>
+                    <td><input type="text" name="comment" id="comment" ng-model="formData.comment" /></td>
                 </tr>
 
+
             </table><br/>
-            <button id="register" name="register" ng_click="register(topic,comment)">Create Topic</button>
-            </form>
+            <button id="register" name="register" ng_click="insertData(topic,comment)">Create Topic</button>
+
 
             <br/>
             <p > {{msg}}</p>
@@ -62,6 +64,7 @@
 
                 </li>
             </ul>
+
 
         </div>
     </div>
