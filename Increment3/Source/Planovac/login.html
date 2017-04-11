@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Planovac</title>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <script src="js/app.js"></script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container" ng-controller="LoginController">
+    <div class="top">
+        <h1 id="title" class="hidden"><span id="logo">Planovac</span></h1>
+    </div>
+    <div class="login-box animated fadeInUp">
+        <div class="box-header">
+            <h2>Login</h2>
+        </div>
+        <!--<label for="firstname" style="margin-right: 60px">First name</label>
+        <label for="lastname" style="margin-left: 60px">Last name</label>
+        <br/>
+        <input type="text" id="firstname" data-ng-model="firstname" required>&emsp;
+        <input type="text" id="lastname" data-ng-model="lastname" required>
+        <br/>-->
+        <label for="username">Username</label>
+<<<<<<< HEAD
+        
+        <br/>
+        <input type="text" id="username" data-ng-model="username" required style="width:75%">
+        
+        <br/>
+        
+        <label for="password">Password</label>
+        
+        <br/>
+        <input type="password" id="password" data-ng-model="password" required style="width:77%">&emsp;
+=======
+        <br/>
+        <input type="text" id="username" data-ng-model="username" style="width:77%" required>
+        <br/>
+        <label for="password">Password</label>
+        <br/>
+        <input type="password" id="password" data-ng-model="password" style="width:77%" required>&emsp;
+>>>>>>> origin/master
+        <br/>
+        <br/>
+        <button id="login" name="login" ng_click="login(username,password)">Login</button></a>
+        <br/><br/>
+        <a href="register.html"><button>Register</button></a>
+        <br/><br/>
+        <button id="gmail" onclick="login()"><img src="images/gmail.png" height="20"/>&nbsp;&nbsp;<b>Gmail Login</b></button>
+        <br/>
+<<<<<<< HEAD
+        <p >Thanks for Logging in <b>{{uname}}</b></p>
+=======
+        <p >Thanks for Logging in <span id="dispname"></span><b>{{user}}</b> </p><br/>
+>>>>>>> origin/master
+        <br/><br/><br/><br/><br/>
+    </div>
+
+</div>
+</body>
+</html>
+<<<<<<< HEAD
+<script type="text/javascript">
+    function logout()
+    {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+    function login()
+    {
+        var myParams = {
+            'clientid' : '738433218081-7111mc5s0vgkfgqjoaeahr87alrpd3vm.apps.googleusercontent.com',
+            'cookiepolicy' : 'single_host_origin',
+            'callback' : 'loginCallback',
+            'approvalprompt':'force',
+            'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+        };
+        gapi.auth.signIn(myParams);
+        window.location.href("http://localhost:63342/ReviewSentiment/Planovac/home.html");
+    }
+    function loginCallback(result)
+    {
+        if(result['status']['signed_in'])
+        {
+            var request = gapi.client.plus.people.get(
+                {
+                    'userId': 'me'
+                });
+            request.execute(function (resp)
+            {
+                var email = '';
+                if(resp['emails'])
+                {
+                    for(i = 0; i < resp['emails'].length; i++)
+                    {
+                        if(resp['emails'][i]['type'] == 'account')
+                        {
+                            email = resp['emails'][i]['value'];
+                        }
+                    }
+                }
+                var str = "Name:" + resp['displayName'] + "<br>";
+                str += "Image:" + resp['image']['url'] + "<br>";
+                str += "<img src='" + resp['image']['url'] + "' /><br>";
+                str += "URL:" + resp['url'] + "<br>";
+                str += "Email:" + email + "<br>";
+                document.getElementById("profile").innerHTML = str;
+            });
+        }
+    }
+    function onLoadCallback()
+    {
+        gapi.client.setApiKey('AIzaSyA23Qn5CJLuLm1_rfY1qBPa6i1s1Gi2J1w');
+        gapi.client.load('plus', 'v1',function(){});
+    }
+</script>
+=======
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+<script data-require="jquery" data-semver="2.0.3" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+>>>>>>> origin/master
