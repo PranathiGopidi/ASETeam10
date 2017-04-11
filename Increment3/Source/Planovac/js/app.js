@@ -5,6 +5,7 @@ app.controller("RegisterController", function ($scope, $http, $httpParamSerializ
     $scope.createFixed = function() {
         alert("hi");
 <<<<<<< HEAD
+<<<<<<< HEAD
         $window.location.href = '/lab7_mongo/www/Login.html';
     };
 
@@ -25,6 +26,8 @@ app.controller("RegisterController", function ($scope, $http, $httpParamSerializ
             $scope.password ="";
             $scope.email ="";
 =======
+=======
+>>>>>>> origin/master
         $window.location.href = "/lab7_mongo/www/Login.html;
     };
     $scope.pageClass = "register";
@@ -53,6 +56,9 @@ app.controller("RegisterController", function ($scope, $http, $httpParamSerializ
             $scope.sid ="";
             $scope.password ="";
             $scope.cpassword ="";
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
             $scope.msg ="User created successfully";
@@ -68,6 +74,7 @@ app.controller("LoginController", function ($scope, $http, $httpParamSerializerJ
     $scope.pageClass = 'login';
     $scope.login = function(username, pword) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         sessionStorage.setItem('username1',username);
         $scope.uname = username;
         alert("You're logged in as "+$scope.uname);
@@ -82,6 +89,8 @@ app.controller("LoginController", function ($scope, $http, $httpParamSerializerJ
 
         })
 =======
+=======
+>>>>>>> origin/master
         //sessionStorage.setItem('username1',username);
         if(username==null||pword==null) {
             alert("Username/ password can't be empty");
@@ -125,6 +134,9 @@ app.controller("LoginController", function ($scope, $http, $httpParamSerializerJ
             }
         })
         }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
     }
@@ -136,16 +148,22 @@ app.controller("ProfileController", function ($scope, $http, $httpParamSerialize
     $scope.pageClass = 'profile';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $scope.username = sessionStorage.getItem("username1");
         alert($scope.username);
         $http({
             method: 'GET',
             url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
 =======
+=======
+>>>>>>> origin/master
         $scope.username = sessionStorage.getItem("username");
         $http({
             method: 'GET',
             url : "https://api.mongolab.com/api/1/databases/ase/collections/asee?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
             /*contentType: "application/json"*/
         }).then(function success(data) {
@@ -157,6 +175,7 @@ app.controller("ProfileController", function ($scope, $http, $httpParamSerialize
 
 
 });
+<<<<<<< HEAD
 
 app.controller("DiscussController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
 //alert("hi");
@@ -199,6 +218,29 @@ $http({
 
 
 =======
+=======
+app.controller("MapController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
+
+    $scope.pageClass = 'Map';
+
+    $http({
+        method: 'GET',
+        url : "https://api.mongolab.com/api/1/databases/ase/collections/map?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+        /*contentType: "application/json"*/
+    }).then(function success(data) {
+        //alert(data);
+        $scope.data1 = angular.fromJson(data);
+        //$window.location.href = "home.html";
+
+    })
+
+
+});
+
+app.controller("DiscussController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
+//alert("hi");
+    $scope.pageClass = 'register';
+>>>>>>> origin/master
     $scope.register = function(topic,comment) {
 
         $http({
@@ -293,6 +335,9 @@ function onLoadCallback()
     po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
 
