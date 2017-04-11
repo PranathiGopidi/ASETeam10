@@ -142,8 +142,6 @@
 <div class="wrapp" ng-controller="googlemapoutput">
     <div class="row">
 
-        <button id='btn1'  ng-click="getLocation();">getLocation</button>
-        <p>Address: <span ng-model="address" id="address"></span></p>
         <span style= "color: white;" >Enter Source name:</span>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text"  ng-model="startcity" id="startcity"/>
         <br/><br/>
@@ -154,6 +152,9 @@
 
         <button id="btn" ng-click="calcRoute();">
             <span style= "color: black;" > Get Route</span>
+        </button>
+        <button id="btn2" ng-click="getLocation(); calcRouteLoc();">
+            <span style= "color: black;" > Get Route from my location</span>
         </button>
         <br/></br>
     </div>
@@ -173,11 +174,31 @@
         .controller('googlemapoutput', function ($scope, $http) {
             var map;
             var mapOptions;
+            var st;
             var directionsDisplay = new google.maps.DirectionsRenderer({
                 draggable: true
+
             });
             var directionsService = new google.maps.DirectionsService();
+            $scope.getLocation = function() {
+
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+            function success(position) {
+
+                var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+
+                $.getJSON(GEOCODING).done(function(location) {
+                    $('#address').html(location.results[0].formatted_address);
+                    st=location.results[0].formatted_address
+
+
+                })
+
+            }
+
             $scope.initialize = function () {
+
                 var input = document.getElementById('startcity');
                 var autocomplete = new google.maps.places.Autocomplete(input);
                 var input = document.getElementById('endcity');
@@ -191,6 +212,8 @@
                     mapOptions);
             };
             $scope.calcRoute = function () {
+
+
                 var end = document.getElementById('endcity').value;
 
                 var start = document.getElementById('startcity').value;
@@ -208,19 +231,28 @@
                     }
                 });
             };
-            $scope.getLocation = function() {
+            $scope.calcRouteLoc = function () {
 
-                navigator.geolocation.getCurrentPosition(success, error);
-            }
-            function success(position) {
 
-                var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+                var end = document.getElementById('endcity').value;
 
-                $.getJSON(GEOCODING).done(function(location) {
-                    $('#address').html(location.results[0].formatted_address);
-                })
+                var start = st;
 
-            }
-                       google.maps.event.addDomListener(window, 'load', $scope.initialize);
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setMap(map);
+                        directionsDisplay.setDirections(response);
+                        console.log(status);
+                    }
+                });
+            };
+
+
+            google.maps.event.addDomListener(window, 'load', $scope.initialize);
         });
 </script>
