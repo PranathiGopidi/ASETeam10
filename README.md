@@ -2,13 +2,9 @@
 
 Project Increment #1 Report Wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-1-Report
 
-<<<<<<< HEAD
-Project Increment #2 Report wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-2-Report
-=======
 Project Increment #2 Report wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-2-Report   
 
 Project Increment #3 Report wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-3-Report
->>>>>>> origin/master
 
 **Team Members :**  
 Ravali Bolem (UMKC ID: 16231463; Class ID: 7)  
