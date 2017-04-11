@@ -1,49 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="myApp">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.3.js"></script>
+    <title>Classes</title>
+    <script src="js/app.js"></script>
 </head>
 <body>
-
-<p>Address: <span id="address"></span></p>
-
-<script type="text/javascript">
-    navigator.geolocation.getCurrentPosition(success, error);
-
-    function success(position) {
-
-        var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
-
-        $.getJSON(GEOCODING).done(function(location) {
-            $('#address').html(location.results[0].formatted_address);
-        })
-
-    }
-
-    function error(err) {
-        console.log(err)
-    }
-</script>
-<script type="text/javascript">
-    navigator.geolocation.getCurrentPosition(success, error);
-
-    function success(position) {
-        console.log(position.coords.latitude)
-        console.log(position.coords.longitude)
-
-        var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
-
-        $.getJSON(GEOCODING).done(function(location) {
-            console.log(location)
-        })
-
-    }
-
-    function error(err) {
-        console.log(err)
-    }
-</script>
+<div class="container" ng-controller="ProfileController">
+    <button type="submit"  ng_click="addClass(classes)">submit</button>
+</div>
 </body>
 </html>
