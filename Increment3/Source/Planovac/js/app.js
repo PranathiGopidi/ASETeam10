@@ -111,6 +111,23 @@ app.controller("ProfileController", function ($scope, $http, $httpParamSerialize
 
 
 });
+app.controller("MapController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
+
+    $scope.pageClass = 'Map';
+
+    $http({
+        method: 'GET',
+        url : "https://api.mongolab.com/api/1/databases/ase/collections/map?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+        /*contentType: "application/json"*/
+    }).then(function success(data) {
+        //alert(data);
+        $scope.data1 = angular.fromJson(data);
+        //$window.location.href = "home.html";
+
+    })
+
+
+});
 
 app.controller("DiscussController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
 //alert("hi");
