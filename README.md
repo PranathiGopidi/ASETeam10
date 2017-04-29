@@ -1,5 +1,4 @@
-*
-# PLANOVAC  
+*# PLANOVAC  
 (A Online Scheduler Application only for Students)   
   
   
