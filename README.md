@@ -1,14 +1,22 @@
-**Advanced Software Engineering Project**
+*
 # PLANOVAC  
-- A Online Scheduler Application only for Students
+(A Online Scheduler Application only for Students)   
+  
+  
 **Abstract:**  
-In the scenario of vast set of people, students are the main focused study group who needs to meet the deadlines without fail. Many people have the backup plans if they miss the scheduled dates,  
-what if students skip their deadlines ?
- - their grades go down, 
- - re-registering the course,
- - redoing the work,
- - need to spend lots of money etc. etc.    
+In the scenario of vast set of people, students are the main focused study group who needs to meet the deadlines without fail. Many people have the remainder, notification applications to remaind if they miss the scheduled dates. 
+  
+What if students skip their deadlines ?
+ - Their grades go down, 
+ - Re-registering the course,
+ - Redoing the work,
+ - Need to spend lots of money etc. etc.      
+   
 In order to deal with such issues, our application makes on making the application which portraits the problems faced by students and gives the simple solution called the PLANOVAC which means Scheduler in Czech Language.
+  
+# Project & Planning  
+This is project taken up in **Advanced Software Engineering(ASE)** Course under guidance of Dr.Lee.   
+Project is divided into four phases
 
 
 Project Increment #1 Report Wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-1-Report
