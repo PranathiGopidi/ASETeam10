@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="GoogleDirection">
+
+<head>
+    <meta charset="utf-8">
+    <title>Planovac</title>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <script src="js/app.js"></script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuqX4xU6EVAEDGdwXgQkHZb2x5YUT7oCE&v=3.exp&sensor=true&amp;libraries=places"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<style>
+    { margin: 0; padding: 0; }
+
+
+    .row{
+
+        text-align: center;
+    }
+
+    #map-canvas {
+        width: 650px;
+        height: 450px;
+        display: inline-block;
+        position: relative;
+        right: 0px;
+
+    }
+
+
+</style>
+<script type="text/javascript">
+    function getLocation() {
+
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+    window.onload = getLocation;
+    function success(position) {
+
+        var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+
+        $.getJSON(GEOCODING).done(function(location) {
+            $('#startcity').html(location.results[0].formatted_address);
+        })
+
+    }
+
+    function error(err) {
+        console.log(err)
+    }
+</script>
+<body>
+<div class="container" ng-controller="googlemapoutput">
+    <div class="top">
+        <h1 id="title" class="hidden"><span id="logo">Planovac</span></h1>
+    </div>
+    <div class="login-box animated fadeInUp">
+        <div class="box-header">
+            <h2>Direction</h2>
+        </div>
+        <a href="home.html"><button>About</button></a>
+        <a href="profile.html"><button>Profile</button></a>
+        <a href="classes.html"><button>Classes</button></a>
+        <a href="maps.html"><button>Direction</button></a>
+        <a href="collaborate.html"><button>Collaborate</button></a>
+        <a href="tasks.html"><button>Tasks</button></a>
+        <a href="discuss.html"><button>Discussion Form</button></a>
+        <a href="calendar.html"><button>Calendar</button></a>
+        <a href="login.html"><button>Sign out</button></a>
+        <br/>
+        <br/>
+                <div class="row">
+
+
+                    <span ng-repeat="item in data1.data | filter:{username:username}">
+                         <span style= "color: black;" >Class Address</span>
+                        <span><b><div id="lt">{{item.address}}</div></b></span><br/>
+                    </span>
+
+            <span style= "color: black;" >Enter Source name:</span>
+            <input type="text"  ng-model="startcity" id="startcity"/>
+
+
+            <span style= "color: black;" >Enter Destination name:</span>
+            &nbsp<input type="text"  ng-model="endcity" id="endcity" />
+            <br/><br/>
+
+            <button id="btn" ng-click="calcRoute();">
+                <span style= "color: white;" > Get Route</span>
+            </button>
+            <button id="btn2" ng-click="calcRouteLoc();">
+                <span style= "color: white;" > Get Route from my location</span>
+            </button>
+            <br/></br>
+        </div>
+
+        <div id="map-canvas" style="height: 400px;"></div>
+        <br/></br>
+        <span id="map"></span>
+
+
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+</div>
+</div>
+</body>
+
+
+
+<script>
+
+
+
+
+
+    angular.module('GoogleDirection', [])
+        .controller('googlemapoutput', function ($scope, $http) {
+            var map;
+            var mapOptions;
+            var mp;
+            var st;
+
+            var directionsDisplay = new google.maps.DirectionsRenderer({
+                draggable: true
+
+            });
+            var directionsService = new google.maps.DirectionsService();
+            var getLocation = function() {
+
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+            function success(position) {
+
+                var GEOCODING = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+
+                $.getJSON(GEOCODING).done(function(location) {
+                    $('#address').html(location.results[0].formatted_address);
+                    st=location.results[0].formatted_address;
+
+
+                })
+
+            }
+            getLocation();
+
+            $http({
+                method: 'GET',
+                url : "https://api.mongolab.com/api/1/databases/ase/collections/map?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+                /*contentType: "application/json"*/
+            }).then(function success(data) {
+                $scope.data1 = angular.fromJson(data);
+
+                //$window.location.href = "home.html";
+
+            })
+
+            $scope.initialize = function () {
+
+                var input = document.getElementById('startcity');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var input = document.getElementById('endcity');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                var pos = new google.maps.LatLng(0, 0);
+                var mapOptions = {
+                    zoom: 3,
+                    center: pos
+                };
+                map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+            };
+            $scope.calcRoute = function () {
+
+
+                var markerStart,markerEnd;
+                var infowindowStart = new google.maps.InfoWindow();
+                var infowindowEnd = new google.maps.InfoWindow();
+                if(markerStart!=null)
+                    markerStart.setMap(null);
+                if(markerEnd!=null)
+                    markerEnd.setMap(null);
+                if(infowindowStart!=null)
+                    infowindowStart.close();
+                if(infowindowEnd!=null)
+                    infowindowEnd.close();
+                var end = document.getElementById('endcity').value;
+                var start = document.getElementById('startcity').value;
+
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+
+                directionsService.route(request, function (response, status) {
+                    directionResponse=response;
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setMap(map);
+                        directionsDisplay.setDirections(response);
+                    }
+
+                });
+                var startcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions/q/"+start+".json";
+                var endcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions/q/"+end+".json";
+                $http.get(startcityWeatherUrl).success(function(data) {
+                    if(data.current_observation==null){
+                        startcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions"+data.response.results[0].l+".json";
+                        $http.get(startcityWeatherUrl).success(function(data) {
+                            markerStart=new google.maps.Marker({
+                                map:map
+                            });
+                            markerStart.setPosition(directionResponse.routes[0].legs[0].start_location);
+                            infowindowStart.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                            infowindowStart.open(map,markerStart);
+                        });
+                    }
+                    else{
+                        markerStart=new google.maps.Marker({
+                            map:map
+                        });
+                        markerStart.setPosition(directionResponse.routes[0].legs[0].start_location);
+                        infowindowStart.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                        infowindowStart.open(map,markerStart);
+                    }
+                });
+                $http.get(endcityWeatherUrl).success(function(data) {
+                    if(data.current_observation==null){
+                        endcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions"+data.response.results[0].l+".json";
+                        $http.get(endcityWeatherUrl).success(function(data) {
+                            markerEnd=new google.maps.Marker({
+                                map:map
+                            });
+                            markerEnd.setPosition(directionResponse.routes[0].legs[0].end_location);
+                            infowindowEnd.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                            infowindowEnd.open(map,markerEnd);
+                        });
+                    }
+                    else{
+                        markerEnd=new google.maps.Marker({
+                            map:map
+                        });
+                        markerEnd.setPosition(directionResponse.routes[0].legs[0].end_location);
+                        infowindowEnd.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                        infowindowEnd.open(map,markerEnd);
+                    }
+                });
+            };
+
+
+            $scope.calcRouteLoc = function () {
+
+
+                var markerStart,markerEnd;
+                var infowindowStart = new google.maps.InfoWindow();
+                var infowindowEnd = new google.maps.InfoWindow();
+                if(markerStart!=null)
+                    markerStart.setMap(null);
+                if(markerEnd!=null)
+                    markerEnd.setMap(null);
+                if(infowindowStart!=null)
+                    infowindowStart.close();
+                if(infowindowEnd!=null)
+                    infowindowEnd.close();
+                var end = document.getElementById('endcity').value;
+                var start = st;
+
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+
+                directionsService.route(request, function (response, status) {
+                    directionResponse=response;
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setMap(map);
+                        directionsDisplay.setDirections(response);
+                    }
+
+                });
+                var startcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions/q/"+start+".json";
+                var endcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions/q/"+end+".json";
+                $http.get(startcityWeatherUrl).success(function(data) {
+                    if(data.current_observation==null){
+                        startcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions"+data.response.results[0].l+".json";
+                        $http.get(startcityWeatherUrl).success(function(data) {
+                            markerStart=new google.maps.Marker({
+                                map:map
+                            });
+                            markerStart.setPosition(directionResponse.routes[0].legs[0].start_location);
+                            infowindowStart.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                            infowindowStart.open(map,markerStart);
+                        });
+                    }
+                    else{
+                        markerStart=new google.maps.Marker({
+                            map:map
+                        });
+                        markerStart.setPosition(directionResponse.routes[0].legs[0].start_location);
+                        infowindowStart.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                        infowindowStart.open(map,markerStart);
+                    }
+                });
+                $http.get(endcityWeatherUrl).success(function(data) {
+                    if(data.current_observation==null){
+                        endcityWeatherUrl="https://api.wunderground.com/api/36b799dc821d5836/conditions"+data.response.results[0].l+".json";
+                        $http.get(endcityWeatherUrl).success(function(data) {
+                            markerEnd=new google.maps.Marker({
+                                map:map
+                            });
+                            markerEnd.setPosition(directionResponse.routes[0].legs[0].end_location);
+                            infowindowEnd.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                            infowindowEnd.open(map,markerEnd);
+                        });
+                    }
+                    else{
+                        markerEnd=new google.maps.Marker({
+                            map:map
+                        });
+                        markerEnd.setPosition(directionResponse.routes[0].legs[0].end_location);
+                        infowindowEnd.setContent('<h4>Weather Details</h4><p class="weatherDetails"> Temperature is '+data.current_observation.temp_f+' and '+data.current_observation.weather+'<img src="'+data.current_observation.icon_url+'"/></p>');
+                        infowindowEnd.open(map,markerEnd);
+                    }
+                });
+            };
+
+            google.maps.event.addDomListener(window, 'load', $scope.initialize);
+        });
+</script>
+</html>
