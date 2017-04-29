@@ -16,14 +16,29 @@ In order to deal with such issues, our application makes on making the applicati
 # Specific Features  
 **Feature 1 - Profile**  
 Profile is the basic feature of any application which showcases the user account details of the login user. This provides the information of the user when logged in from gmail. The profile informations are stored in Mongo Database.  
+  
 **Feature 2 - Classes**  
 Planovac gives the student an opportunity to store their class schedule, so that they get notifications time to time to maintain their schedules well. The schedules are given stored in Mongo Database which is interlinked with Google calendar to access the events.  
+   
+**Feature 3 - Collaborate**
+Collaborate is similar to the Chat Application which are in the market like Watsapp, Facebook Messenger. But Planavoc gives the flexibility only for the students to interact with each other or with couple of other friends to chat privately.   
+   
+**Feature 4 - Tasks**
+Students need to plan their work to complete their assignments on time, so they can assign tasks in Planovoc. These tasks remind them of their work yet to complete. Options to create,delete and edit the tass are also provided.   
+   
+**Feature 5 - Discussion Forum**
+This is different to the collaborate of Planovac. The discussion forum heps the students to discuss the knowledge and clarify the doubts with friends and even with professor. Professor can post important information about test syllabus, cancellation of classes etc in Discussion Forum . This Forum helps students to expand their knowledge by having healthy discussion with their classmates.   
+   
+**Feature 6 – Calendar**
+Planavoc calendar includes the dates of important events and shows added by the students. This runs with the Google Calendar API. Notifications also send to students based on the events stored in the Mango database.   
+   
+   
 
   
 # Project & Planning  
 This is project taken up in **Advanced Software Engineering(ASE)** Course.   
-Project is divided into four phases completing the whole project by 4.28.2017
-The source code is uploaded and the a gist of each phase is given in the WIKI Page Report whose links are provided below:  
+   
+Project is divided into four phases.The source code is uploaded and the a gist of each phase is given in the WIKI Page Report whose links are provided below:  
 
 Project Increment #1 Report Wiki page : https://github.com/PranathiGopidi/Planovac/wiki/Increment-1-Report
 
