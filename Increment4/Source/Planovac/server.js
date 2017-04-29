@@ -1,6 +1,7 @@
 var express = require('express');
-var e;
-var t = "31 00 * * *";
+var e = [];
+var f = 1;
+var t = "01 01 * * *";
 var nodemailer = require("nodemailer");
 var app=express();
 var MongoClient = require('mongodb').MongoClient;
@@ -14,10 +15,11 @@ MongoClient.connect(url, function(err, db) {
 
         for(var i in doc) {
             if(i == "email"){
-                e = doc[i];
-                console.log(e);
+                e = e + doc[i] + ",";
             }
+
         }
+
     });
 });
 var smtpTransport = nodemailer.createTransport({
