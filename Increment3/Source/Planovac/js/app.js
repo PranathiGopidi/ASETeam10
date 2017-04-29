@@ -4,14 +4,15 @@ var app = angular.module("myApp", [])
 app.controller("RegisterController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
     $scope.createFixed = function() {
         alert("hi");
-        $window.location.href = "/lab7_mongo/www/Login.html;
+        $window.location.href = '/lab7_mongo/www/Login.html';
     };
-    $scope.pageClass = "register";
+
+    $scope.pageClass = 'register';
     $scope.register = function(firstname, lastname, username, mobile, sso, sid, password, cpassword) {
 
         $http({
-            method: "POST",
-            url : "https://api.mongolab.com/api/1/databases/ase/collections/asee?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+            method: 'POST',
+            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
             data: JSON.stringify({
                 fname: firstname,
                 lname: lastname,
@@ -55,7 +56,7 @@ app.controller("LoginController", function ($scope, $http, $httpParamSerializerJ
         $scope.pass = pword;
         $http({
             method: 'GET',
-            url : "https://api.mongolab.com/api/1/databases/ase/collections/asee?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
             /*contentType: "application/json"*/
         }).success(function(response) {
             //alert(response);
@@ -93,14 +94,49 @@ app.controller("LoginController", function ($scope, $http, $httpParamSerializerJ
 
 });
 
-app.controller("ProfileController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
+app.controller("ClassController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
+    $scope.showPage = function(){
+        var page = document.getElementById("innerform");
+        page.style.visibility='visible';
+    }
+    //alert("hello");
+    $scope.pageClass = 'classes';
+    $scope.addClass = function(classes) {
+        //alert("inside function");
+        var e = document.getElementById("classes");
+        //alert(e);
+        var cname = e.options[e.selectedIndex].value;
+        //alert(cname);
+        var str_array = cname.split(',');
+        //alert(str_array[0]);
+        $http({
+            method: 'POST',
+            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/classes?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
+            data: JSON.stringify({
+                classname: str_array[0],
+                fromtime: str_array[1],
+                totime: str_array[2],
+                location: str_array[3]
+            }),
+            contentType: "application/json"
+        }).success(function() {
+            $scope.classname ="";
+            $scope.fromtime ="";
+            $scope.totime ="";
+            $scope.location ="";
 
+        })
+    }
+
+});
+
+app.controller("ProfileController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
     $scope.pageClass = 'profile';
 
         $scope.username = sessionStorage.getItem("username");
         $http({
             method: 'GET',
-            url : "https://api.mongolab.com/api/1/databases/ase/collections/asee?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
             /*contentType: "application/json"*/
         }).then(function success(data) {
             //alert(data);
@@ -111,23 +147,7 @@ app.controller("ProfileController", function ($scope, $http, $httpParamSerialize
 
 
 });
-app.controller("MapController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
 
-    $scope.pageClass = 'Map';
-
-    $http({
-        method: 'GET',
-        url : "https://api.mongolab.com/api/1/databases/ase/collections/map?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
-        /*contentType: "application/json"*/
-    }).then(function success(data) {
-        //alert(data);
-        $scope.data1 = angular.fromJson(data);
-        //$window.location.href = "home.html";
-
-    })
-
-
-});
 
 app.controller("DiscussController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
 //alert("hi");
@@ -136,7 +156,7 @@ app.controller("DiscussController", function ($scope, $http, $httpParamSerialize
 
         $http({
             method: 'POST',
-            url : "https://api.mongolab.com/api/1/databases/ase/collections/asee?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/discuss?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
             data: JSON.stringify({
                 topic: topic,
                 comment: comment
@@ -153,7 +173,7 @@ app.controller("DiscussController", function ($scope, $http, $httpParamSerialize
         $scope.topic = topic;
         $http({
             method: 'GET',
-            url : "https://api.mongolab.com/api/1/databases/ase/collections/asee?apiKey=AdCRHL4_tFAn75DZFj6hht_A394EoAGV",
+            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/discuss?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
             /*contentType: "application/json"*/
         }).then(function success(data) {
             //alert(data);
@@ -178,7 +198,7 @@ function login()
         'cookiepolicy' : 'single_host_origin',
         'callback' : 'loginCallback',
         'approvalprompt':'force',
-        'scope' : "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
+        'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
     };
     gapi.auth.signIn(myParams);
 
