@@ -9,6 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
     <script src="js/app.js"></script>
+    <script src="js/server.js"></script>
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -42,6 +43,7 @@
                 First Name:<span><b>{{item.firstname}}</b></span><br/>
                 Last Name:<b>{{item.lastname}}</b><br/>
                 Username:<b>{{item.username}}</b><br/>
+                Email:<b id="email" ng-model="email">{{item.email}}</b><br/>
                 Mobile:<b>{{item.mobile}}</b><br/>
                 SSO:<b>{{item.sso}}</b><br/>
                 SID:<b>{{item.sid}}</b>
@@ -54,7 +56,9 @@
 </body>
 <script>
     if(typeof(sessionStorage)){
-        document.getElementById("profile").innerHTML = sessionStorage.getItem("profile");}
+        document.getElementById("profile").innerHTML = sessionStorage.getItem("profile");
+        sessionStorage.setItem("email",document.getElementById("email"));
+    }
 </script>
 </html>
 

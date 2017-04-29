@@ -220,35 +220,18 @@ app.controller("TasksController", function ($scope, $http, $httpParamSerializerJ
 
 app.controller("ProfileController", function ($scope, $http, $httpParamSerializerJQLike,$window) {
     $scope.pageClass = 'profile';
-        var gProfileData;
-        alert("in profile");
-        $scope.username = sessionStorage.getItem("username");
-        var x = $http.get('http://127.0.0.1:8081/profile');
-        x.then(function success(data) {
-            alert("inside function");
-        if(data!=null) {
-            $scope.data1 =data.data;
-            //console.log('Inside home js Profile Data'+gProfileData);
-            $location.path("profile");
-        }
-        if(data==null)
-        {
-            alert("error");
-            console.log('error');
-        }
-    });
-        /*$http({
-            method: 'GET',
-            url : 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
-            /*contentType: "application/json"*/
-        /*}).then(function success(data) {
-            //alert(data);
-            $scope.data1 = angular.fromJson(data);
-            //$window.location.href = "home.html";
+    $scope.username = sessionStorage.getItem("username");
+    email = sessionStorage.getItem("username");
+    $http({
+        method: 'GET',
+        url: 'https://api.mongolab.com/api/1/databases/planovac/collections/users?apiKey=1fB-Vh6r9XKxu-n0eW_4OeXvlAEViZl3',
+        /*contentType: "application/json"*/
+    }).then(function success(data) {
+        //alert(data);
+        $scope.data1 = angular.fromJson(data);
+        //$window.location.href = "home.html";
 
-        })*/
-
-
+    })
 });
 
 
@@ -350,14 +333,5 @@ function onLoadCallback()
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 
-myApp.config(function($routeProvider) {
-    $routeProvider
-        .when('/profile', {
-            templateUrl: 'profile.html',
-            controller: 'profileController',
-            controllerAs: 'profileController'
-        })
-        .otherwise({ redirectTo: '/' });
-});
 
 
