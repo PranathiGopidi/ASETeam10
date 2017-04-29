@@ -20,20 +20,20 @@ Profile is the basic feature of any application which showcases the user account
 **Feature 2 - Classes**  
 Planovac gives the student an opportunity to store their class schedule, so that they get notifications time to time to maintain their schedules well. The schedules are given stored in Mongo Database which is interlinked with Google calendar to access the events.  
    
-**Feature 3 - Collaborate**
+**Feature 3 - Collaborate**   
 Collaborate is similar to the Chat Application which are in the market like Watsapp, Facebook Messenger. But Planavoc gives the flexibility only for the students to interact with each other or with couple of other friends to chat privately.   
    
-**Feature 4 - Tasks**
+**Feature 4 - Tasks**    
 Students need to plan their work to complete their assignments on time, so they can assign tasks in Planovoc. These tasks remind them of their work yet to complete. Options to create,delete and edit the tass are also provided.   
    
-**Feature 5 - Discussion Forum**
+**Feature 5 - Discussion Forum**    
 This is different to the collaborate of Planovac. The discussion forum heps the students to discuss the knowledge and clarify the doubts with friends and even with professor. Professor can post important information about test syllabus, cancellation of classes etc in Discussion Forum . This Forum helps students to expand their knowledge by having healthy discussion with their classmates.   
    
-**Feature 6 – Calendar**
+**Feature 6 – Calendar**    
 Planavoc calendar includes the dates of important events and shows added by the students. This runs with the Google Calendar API. Notifications also send to students based on the events stored in the Mango database.   
    
-   
-
+**Feature 7 - Maps**  
+Planovac gets the location and provides route to the class location. This feature helps students to find the routes if they are new to campus> in addition to location, Planavoc also gives the weather predictions. This runs with Google Location and Weather API.
   
 # Project & Planning  
 This is project taken up in **Advanced Software Engineering(ASE)** Course.   
