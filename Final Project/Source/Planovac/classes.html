@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Planovac</title>
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <script src="js/app.js"></script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuqX4xU6EVAEDGdwXgQkHZb2x5YUT7oCE&v=3.exp&sensor=true&amp;libraries=places"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+    { margin: 0; padding: 0; }
+
+
+    .row{
+
+        text-align: center;
+    }
+
+    #map-canvas {
+        width: 400px;
+        height: 200px;
+        display: inline-block;
+        position: relative;
+        right: 0px;
+
+    }
+
+
+</style>
+
+<body>
+<div class="container" ng-controller="ClassController">
+    <div class="top">
+        <h1 id="title" class="hidden"><span id="logo">Planovac</span></h1>
+    </div>
+    <div class="login-box animated fadeInUp">
+        <div class="box-header">
+            <h2>Classes</h2>
+        </div>
+        <a href="home.html"><button>About</button></a>
+        <a href="profile.html"><button>Profile</button></a>
+        <a href="classes.html"><button>Classes</button></a>
+        <a href="collaborate.html"><button>Collaborate</button></a>
+        <a href="tasks.html"><button>Tasks</button></a>
+        <a href="discuss.html"><button>Discussion Form</button></a>
+        <a href="calendar.html"><button>Calendar</button></a>
+        <a href="login.html"><button>Sign out</button></a>
+        <br/>
+        <br/>
+        <div>
+            <button style="background-color: #bb2849" ng_click="showPage()"> Add new class</button>
+            <button style="background-color: #bb2849" ng_click="viewDeleteClass()"> Delete a class</button>
+            <button style="background-color: #bb2849" ng_click="viewClassPage()"> View Classes</button>
+        </div>
+        <br/><br/>
+		<div id="innerform2" style="visibility: hidden">
+            <div id="leftside" style="float:left; width:50%">
+                <b style="float: left; margin-left: 100px">Enrolled Classes List:</b><br/>
+                <ol>
+                    <li ng-repeat="item in data1.data | filter:{username:username}">
+                        <table style="margin-left: 15px">
+                            <tr>
+                                <td>Classname:</td><td style="width:200px"><b>{{item.classname}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>From:</td><td style="width:200px"><b>{{item.fromtime}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>To:</td><td style="width:200px"><b>{{item.totime}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Location:</td><td style="width:200px"><b><div id="lt1">{{item.location}}</div></b></td>
+                            </tr>
+                            <tr>
+                                <td><button ng-click="calcRouteLoc();" style="background-color: #bb2849">Get Route</button></td>
+                            </tr>
+                        </table>
+
+                    </li>
+
+                </ol>
+            </div>
+
+            <div id="rightside" style="float:right; width:50%"></div>
+            <div id="map-canvas" style="height: 400px;"></div>
+            <span id="map"></span>
+
+        </div>
+		<div id="innerform3" style="visibility: hidden">
+            Enrolled Classes List:<br/><br/>
+            <input type="checkbox">Advanced Software Engineering</input><br/>
+            <input type="checkbox">Cryptology 2</input>
+            <br/><br/>
+            <button type="submit" style="background-color: #bb2849" ng_click="deleteClass()">submit</button>
+        </div>
+		<div id="innerform" style="visibility: hidden">
+            Available Classes List:<br/><br/>
+            <select multiple id="classes" name="class" style="height: 120px">
+                <option id="ase" value="Advanced Software Engineering,2.30pm,3.45pm,MNLC">Advanced Software Engineering</option>
+                <option id="crypt1" value="Cryptology 1,10.00am,11.15am,School of Education">Cryptology 1</option>
+                <option id="crypt2" value="Cryptology 2, 8.30am,9.45am,School of Education">Cryptology 2</option>
+                <option id="na1" value="Network Architecture I, 1.00pm,2.15pm,MNLC">Network Architecture I</option>
+                <option id="pgm" value="Fund/ Probabilistic Graph Models, 7.00pm,8.15pm,FH">Fund/ Probabilistic Graph Models</option>
+            </select><br/><br/>
+            <button type="submit" style="background-color: #bb2849" ng_click="addClass(classes)">submit</button>
+        </div>
+		
+		
+        
+        <br/><br/>
+        <br/><br/><br/><br/><br/><br/>
+    </div>
+</div>
+
+
+</body>
+</html>

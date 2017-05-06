@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Planovac</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <!-- Custom Stylesheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container"ng-controller="TasksController">
+    <div class="top">
+        <h1 id="title" class="hidden"><span id="logo">Planovac</span></h1>
+    </div>
+    <div class="login-box animated fadeInUp">
+        <div class="box-header">
+            <h2>Tasks</h2>
+        </div>
+        <a href="home.html"><button>About</button></a>
+        <a href="profile.html"><button>Profile</button></a>
+        <a href="classes.html"><button>Classes</button></a>
+        <a href="collaborate.html"><button>Collaborate</button></a>
+        <a href="tasks.html"><button>Tasks</button></a>
+        <a href="discuss.html"><button>Discussion Form</button></a>
+        <a href="calendar.html"><button>Calendar</button></a>
+        <a href="login.html"><button>Sign out</button></a>
+        <br/>
+        <br/>
+        <button style="background-color: #bb2849" ng_click="showTasks()"> Current tasks</button>
+        <button style="background-color: #bb2849" ng_click="addTasks()"> Add task</button>
+        <button style="background-color: #bb2849" ng_click="viewDeleteTasks()"> Delete task</button>
+        <br/><br/>
+		<div id="innerform3" style="visibility: hidden"><br/>
+            Current Tasks List:<br/><br/>
+            <input type="checkbox">Project Increment 1</input><br/>
+            <input type="checkbox">Assignment 1</input>
+            <br/><br/>
+            <button type="submit" style="background-color: #bb2849" ng_click="deleteTasks()">submit</button>
+        </div>
+		<div id="innerform2" style="visibility: hidden"><br/>
+            <b>Task List:</b>
+            <ol>
+                <li ng-repeat="item in data1.data | filter:{username:username}">
+                    <center><table>
+                        <tr>
+                            <td>Taskname:</td><td><b>{{item.taskname}}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Deadline:</td><td><b>{{item.deadline}}</b></td>
+                        </tr>
+
+                    </table></center>
+                </li>
+            </ol>
+        </div>
+		<div id="innerform" style="visibility: hidden">
+            <b>Enter Task:</b><br/><br/>
+            <input type="text" id="taskname" data-ng-model="taskname" style="width:50%">
+            <input type="date" id="deadline" data-ng-model="deadline" style="width: 50%"><br/>
+            <button style="background-color: #bb2849" type="submit" ng_click="addTask(taskname,deadline)">submit</button>
+        </div>
+        <br/><br/>
+    </div>
+</div>
+</body>
+</html>
